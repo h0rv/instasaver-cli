@@ -14,9 +14,6 @@ import urllib.request
 @click.option('--collection', prompt='Saved Collection Name', default='All Posts', help="User's saved collection name. Default is 'All Posts' collection.")
 @click.option('--number', default=-1, help="Number of posts to save, starting from most recent. Default is all.")
 def login(username, password, collection, number):
-    username = "horvhorvhorv"
-    password = "^@39Ztr#2q3@$43"
-
     driver = webdriver.Firefox()
     driver.get("https://www.instagram.com/accounts/login/")
     time.sleep(5)
