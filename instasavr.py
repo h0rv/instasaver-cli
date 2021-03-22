@@ -11,10 +11,19 @@ import urllib.request
 @click.command()
 @click.option('--username', prompt='Username', help='User with saved collection.')
 @click.option('--password', prompt='Password', help="User\'s password.")
+@click.option('--browser', prompt='Firefox or Chrome', default='Firefox', help="Browser for selenium.")
 @click.option('--collection', prompt='Saved Collection Name', default='All Posts', help="User's saved collection name. Default is 'All Posts' collection.")
 @click.option('--number', default=-1, help="Number of posts to save, starting from most recent. Default is all.")
-def login(username, password, collection, number):
-    driver = webdriver.Firefox()
+def login(username, password, browser, collection, number):
+    browser = lower(browser)
+    if browser == 'firefox':
+        driver = webdriver.Firefox()
+    elif browser == 'chrome':
+        driver = webdriver.Chrome()
+    else:
+        print('Invalid browser.')
+        quit()
+
     driver.get("https://www.instagram.com/accounts/login/")
     time.sleep(5)
 
