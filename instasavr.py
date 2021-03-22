@@ -1,5 +1,3 @@
-from typing import Collection
-from bs4 import BeautifulSoup
 import click
 import os
 from selenium import webdriver
@@ -15,7 +13,7 @@ import urllib.request
 @click.option('--collection', prompt='Saved Collection Name', default='All Posts', help="User's saved collection name. Default is 'All Posts' collection.")
 @click.option('--number', default=-1, help="Number of posts to save, starting from most recent. Default is all.")
 def login(username, password, browser, collection, number):
-    browser = lower(browser)
+    browser = browser.lower()
     if browser == 'firefox':
         driver = webdriver.Firefox()
     elif browser == 'chrome':
@@ -87,6 +85,7 @@ def login(username, password, browser, collection, number):
             'src'), './images/'+file_name)
         x = x + 1
 
+    print('Download Successful.')
     driver.quit()
     quit()
 
