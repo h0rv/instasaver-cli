@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import click
 import os
 from selenium import webdriver
