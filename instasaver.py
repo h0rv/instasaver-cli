@@ -5,14 +5,14 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import urllib.request
-
+import uuid
 
 @click.command()
-@click.option('--username', prompt='Username', help='User with saved collection.')
-@click.option('--password', prompt='Password', help="User\'s password.")
+@click.option('--username', prompt='Username', help='Instagram username')
+@click.option('--password', prompt='Password', hide_input=True, help="Password")
 @click.option('--browser', prompt='Firefox or Chrome', default='Firefox', help="Browser for selenium.")
-@click.option('--collection', prompt='Saved Collection Name', default='All Posts', help="User's saved collection name. Default is 'All Posts' collection.")
-@click.option('--number', default=-1, help="Number of posts to save, starting from most recent. Default is all.")
+@click.option('--collection', prompt="Saved Collection Name. Default is 'All Posts')", default='All Posts', help="User's saved collection name. Default is 'All Posts' collection.")
+@click.option('--number', default=-1, help="Number of posts to save, starting from most recent. Default is all")
 def login(username, password, browser, collection, number):
     browser = browser.lower()
     if browser == 'firefox':
@@ -75,16 +75,14 @@ def login(username, password, browser, collection, number):
     photos = driver.find_elements_by_class_name('FFVAD')
     # photos = driver.find_elements_by_xpath('//*[@class="FFVAD"]')
     time.sleep(3)
-    x = 1
     try:
         os.mkdir('./images')
     except:
         print('./images directory already exists')
     for photo in photos:
-        file_name = str(x) + '.jpg'
+        filename = str(uuid.uuid4()) + '.jpg'
         urllib.request.urlretrieve(photo.get_attribute(
-            'src'), './images/'+file_name)
-        x = x + 1
+            'src'), './images/'+filename)
 
     print('Download Successful.')
     driver.quit()
